@@ -55,7 +55,7 @@ function add_bodies(s::System, body_list)
 	end
 end
 
-function calculate_orbits(s::System, t, verbose = false)
+function calculate_orbits(s::System, t; verbose = false)
 	orbits = []
 
 	if verbose println("Initializing orbits array...") end
@@ -91,12 +91,21 @@ function calculate_orbits(s::System, t, verbose = false)
 end
 
 # Helper function. Plots orbits
-function plot_orbits(orbits, dim = 2)
-	p = plot(title = "")
-	for orbit in orbits
-		o = [orbit[:, i] for i in 1:dim]
-		p = plot!(o..., line = :dot, linewidth = 4)
+function plot_orbits(orbits; dim = 2, plotargs = Dict(), verbose = false)
+	p = plot(;plotargs...)
+
+	if verbose println("Plotting orbits...") end
+
+	for i in 1:length(orbits)
+		o = [orbits[i][:, j] for j in 1:dim]
+		p = plot!(o...)
+
+		if verbose
+			println("Finished plotting orbit $(i) of $(length(orbits)).")
+		end
 	end
+
+	if verbose println("Done plotting orbits.") end
 	p
 end
 
