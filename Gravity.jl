@@ -81,11 +81,12 @@ function calculate_orbits(s::System, t; verbose = false)
 		end
 
 		if verbose
-			println("Finished calculating positions at time step $(i-1) of $(length(t)-1).")
+			print("\e[2K\e[1G")
+			print("Finished calculating positions at time step $(i-1) of $(length(t)-1).")
 		end
 	end
 
-	if verbose println("Orbits calculated.") end
+	if verbose println("\nOrbits calculated.") end
 
 	orbits
 end
@@ -101,11 +102,12 @@ function plot_orbits(orbits; dim = 2, plotargs = Dict(), verbose = false)
 		p = plot!(o...)
 
 		if verbose
-			println("Finished plotting orbit $(i) of $(length(orbits)).")
+			print("\e[2K\e[1G")
+			print("Finished plotting orbit $(i) of $(length(orbits)).")
 		end
 	end
 
-	if verbose println("Done plotting orbits.") end
+	if verbose println("\nDone plotting orbits.") end
 	p
 end
 
