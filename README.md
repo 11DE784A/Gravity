@@ -1,14 +1,12 @@
 # Gravity
 A prototype library for n-body simulations. Written in Julia.
 
-----
-
 ### Usage Instructions
 
 First, the `Gravity.jl` file needs to be included and the module imported.
 
 ```julia
-julia> include("Gravity.jl")
+julia> include("path/to/Gravity.jl")
 julia> using .Gravity
 ```
 
@@ -85,3 +83,5 @@ anim = animate_orbits(orbits,
                       plotargs = plotargs,
                       verbose = true)
 ```
+
+See the examples folder for more.
