@@ -3,7 +3,7 @@ module Gravity
 using LinearAlgebra
 using Plots
 
-export Body, System, add_body!, add_bodies!, calculate_orbits, plot_orbits, animate_orbits
+export Body, System, name_list, add_body!, add_bodies!, calculate_orbits, plot_orbits, animate_orbits
 
 const G = 4π^2 # Astronomical units, solar masses, years
 
@@ -40,6 +40,14 @@ end
 
 function size(s::System)
 	length(s.bodies)
+end
+
+function name_list(s::System)
+	n = []
+	for body in s.bodies
+		push!(n, body.name)
+	end
+	n
 end
 
 function add_body!(s::System, b::Body)
@@ -98,14 +106,19 @@ function calculate_orbits(s::System, t; verbose = false)
 end
 
 # Helper function. Plots orbits
-function plot_orbits(orbits; dim = 2, plotargs = Dict(), verbose = false)
+function plot_orbits(orbits, names = nothing; 
+					 dim = 2, plotargs = Dict(), verbose = false)
 	p = plot(;plotargs...)
 
 	if verbose println("Plotting orbits...") end
 
 	for i in 1:length(orbits)
 		o = [orbits[i][:, j] for j in 1:dim]
-		p = plot!(o...)
+		if names == nothing
+			p = plot!(o...)
+		else
+			p = plot!(o..., label = names[i])
+		end
 
 		if verbose
 			print("\e[2K\e[1G")
@@ -117,7 +130,8 @@ function plot_orbits(orbits; dim = 2, plotargs = Dict(), verbose = false)
 	p
 end
 
-function animate_orbits(orbits; dim = 2, every = 1, plotargs = Dict(), verbose = false)
+function animate_orbits(orbits, names = nothing; 
+						dim = 2, every = 1, plotargs = Dict(), verbose = false)
 	anim = Animation()
 
 	p = scatter(;plotargs...)
@@ -127,7 +141,12 @@ function animate_orbits(orbits; dim = 2, every = 1, plotargs = Dict(), verbose =
 
 	for j in 1:every:n
 		pos = [[[orbits[i][j, k]] for i in 1:length(orbits)] for k in 1:dim]
-		p = scatter(pos...; plotargs...)
+		if names == nothing
+			p = scatter(pos...; plotargs...)
+		else
+			p = scatter(pos...; label = names, plotargs...)
+		end
+			
 		frame(anim)
 
 		if verbose

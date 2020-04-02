@@ -19,4 +19,5 @@ plotargs = Dict(:title => solar.name,
 				:ylabel => "y (A. U.)",
 				:aspect_ratio => :equal)
 
-anim = animate_orbits(orbits, every = 30, plotargs = plotargs, verbose = true);
+anim = animate_orbits(orbits, name_list(solar),
+					  every = 50, plotargs = plotargs, verbose = true);

@@ -12,11 +12,11 @@ add_bodies!(solar, [sun, moon, earth])
 orbit = calculate_orbits(solar, 0:0.0001:1, verbose = true)
 
 plotargs = Dict(:title => solar.name,
-				:legend => false,
+#				:legend => false,
 				:xlim => (-1.5, 1.5),
 				:xlabel => "x (A. U.)",
 				:ylim => (-1.5, 1.5),
 				:ylabel => "y (A. U.)",
 				:aspect_ratio => :equal)
 
-plot_orbits(orbit, dim = 2, plotargs = plotargs, verbose = true)
+plot_orbits(orbit, ["sun", "moon", "earth"], dim = 2, plotargs = plotargs, verbose = true)
