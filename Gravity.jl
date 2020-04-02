@@ -47,7 +47,7 @@ function name_list(s::System)
 	for body in s.bodies
 		push!(n, body.name)
 	end
-	n
+	reshape(n, 1, :)
 end
 
 function add_body!(s::System, b::Body)
