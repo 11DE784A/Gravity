@@ -1,6 +1,6 @@
 include("./Gravity.jl")
 
-plotly()
+using .Gravity
 
 cluster = System("Star Cluster")
 
@@ -10,12 +10,11 @@ mass = 10^2
 
 for i in 1:n
 	b = Body("Star $(i)", d*rand(3), d*rand(-1:0.01:1, 3), mass*rand())
-	add_body(cluster, b)
+	add_body!(cluster, b)
 end
 
 bh = Body("Blackhole", [0.5d, 0.5d, 0.5d], [0.0, 0.0, 0.0], 10^10)
-
-add_body(cluster, bh)
+add_body!(cluster, bh)
 
 plotargs = Dict(:title => cluster.name,
 				:legend => false,

@@ -1,17 +1,21 @@
+module Gravity
+
 using LinearAlgebra
 using Plots
 
-G = 4π^2 # Astronomical units, solar masses, years
+export Body, System, add_body!, add_bodies!, calculate_orbits, plot_orbits
+
+const G = 4π^2 # Astronomical units, solar masses, years
 
 mutable struct Body
 	name
 	pos
 	vel
-	mass::Float64
+	mass
 	system
 
-	function Body(name, pos, vel, mass, system = nothing)
-		new(name, pos, vel, mass, system)
+	function Body(name, pos, vel, mass)
+		new(name, pos, vel, mass, nothing)
 	end
 end
 
@@ -38,7 +42,7 @@ function size(s::System)
 	length(s.bodies)
 end
 
-function add_body(s::System, b::Body)
+function add_body!(s::System, b::Body)
 	if b.system == s
 		@warn("$(b) already in $(s). Skipping")
 	elseif b.system != nothing
@@ -49,9 +53,9 @@ function add_body(s::System, b::Body)
 	push!(s.bodies, b)
 end
 
-function add_bodies(s::System, body_list)
+function add_bodies!(s::System, body_list)
 	for b in body_list
-		add_body(s, b)
+		add_body!(s, b)
 	end
 end
 
@@ -71,6 +75,8 @@ function calculate_orbits(s::System, t; verbose = false)
 	for i in 2:length(t)
 		for j in 1:size(s)
 			dt = t[i] - t[i-1]
+			s.time_elapsed += dt
+
 			b = s.bodies[j]
 
 			b.vel += 0.5 * (force(b)/b.mass) * dt
@@ -129,4 +135,6 @@ function force(b::Body)
 	end
 
 	net_force
+end
+
 end
