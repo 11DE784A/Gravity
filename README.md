@@ -1,8 +1,9 @@
 # Gravity
-# A prototype library for n-body simulations. Written in Julia.
+A prototype library for n-body simulations. Written in Julia.
+
 ----
 
-#### Usage Instructions
+### Usage Instructions
 
 First, the `Gravity.jl` file needs to be included and the module imported.
 
@@ -46,7 +47,7 @@ julia> orbits = calculate_orbits(solar, # System
                                  verbose = true) # This will print status messages
 ```
 
-##### Plotting and Animating
+#### Plotting and Animating
 
 Plotting and animations are done using
 [Plots.jl](http://docs.juliaplots.org/latest/). Options for `plot` (provided by
