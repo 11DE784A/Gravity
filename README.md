@@ -1,6 +1,8 @@
 # Gravity
 A prototype library for n-body simulations. Written in Julia.
 
+![](examples/cluster.gif)
+
 ### Usage Instructions
 
 First, the `Gravity.jl` file needs to be included and the module imported.
