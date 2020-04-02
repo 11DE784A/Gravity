@@ -3,7 +3,7 @@ module Gravity
 using LinearAlgebra
 using Plots
 
-export Body, System, add_body!, add_bodies!, calculate_orbits, plot_orbits
+export Body, System, add_body!, add_bodies!, calculate_orbits, plot_orbits, animate_orbits
 
 const G = 4π^2 # Astronomical units, solar masses, years
 
@@ -115,6 +115,29 @@ function plot_orbits(orbits; dim = 2, plotargs = Dict(), verbose = false)
 
 	if verbose println("\nDone plotting orbits.") end
 	p
+end
+
+function animate_orbits(orbits; dim = 2, every = 1, plotargs = Dict(), verbose = false)
+	anim = Animation()
+
+	p = scatter(;plotargs...)
+	n = Base.size(orbits[1])[1]
+
+	if verbose println("Rendering animation...") end
+
+	for j in 1:every:n
+		pos = [[[orbits[i][j, k]] for i in 1:length(orbits)] for k in 1:dim]
+		p = scatter(pos...; plotargs...)
+		frame(anim)
+
+		if verbose
+			print("\e[2K\e[1G")
+			print("Finished rendering frame $(j) of $(n).")
+		end
+	end
+
+	if verbose println("\nDone creating animation object.") end
+	anim
 end
 
 
