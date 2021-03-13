@@ -54,36 +54,36 @@ Plotting and animations are done using
 Plots.jl) can be specified into a dictionary
 
 ```julia
-plotargs = Dict(:title => Solar System,
-                :xlim => (-1.5, 1.5),
-                :xlabel => "x (AU)",
-                :ylim => (-1.5, 1.5),
-                :ylabel => "y (AU)",
-                :aspect_ratio => :equal)
+julia> plotargs = Dict(:title => Solar System,
+                       :xlim => (-1.5, 1.5),
+                       :xlabel => "x (AU)",
+                       :ylim => (-1.5, 1.5),
+                       :ylabel => "y (AU)",
+                       :aspect_ratio => :equal)
 ```
 
 and the orbits plotted with `plot_orbits`.
 
 ```julia
-plot_orbits(orbits, # the array obtained from `calculate_orbits`
-            plotargs = plotargs, # arguments for `plot`
-            verbose = true) # for status messages
+julia> plot_orbits(orbits, # the array obtained from `calculate_orbits`
+                   plotargs = plotargs, # arguments for `plot`
+                   verbose = true) # for status messages
 ```
 
 For three dimensional plots, `dim = 3` needs to be passed to `plot_orbits`.
 
 ```julia
-plot_orbits(orbits, dim = 3, plotargs = plotargs, verbose = true)
+julia> plot_orbits(orbits, dim = 3, plotargs = plotargs, verbose = true)
 ```
 
 Animations can be created with `animate_orbits`.
 
 ```julia
-anim = animate_orbits(orbits,
-                      dim = 3,    # for 3D plots
-                      every = 30, # save a frame "every N iterations"
-                      plotargs = plotargs,
-                      verbose = true)
+julia> anim = animate_orbits(orbits,
+                             dim = 3,    # for 3D plots
+                             every = 30, # save a frame "every N iterations"
+                             plotargs = plotargs,
+                             verbose = true)
 ```
 
 See the examples folder for more.
